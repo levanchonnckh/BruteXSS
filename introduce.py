@@ -1,3 +1,7 @@
+import os
+
+
+
 def banner():
     banner = """
     ================================================
@@ -11,5 +15,10 @@ def banner():
         2017
     ================================================
     """
-
     print banner
+
+def init():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')

@@ -11,6 +11,8 @@ from colorama import init , Style, Back,Fore
 import mechanize
 import httplib
 import introduce
+import threading
+
 
 init()
 
@@ -25,6 +27,14 @@ def wordlistimport(file,lst):
 		except IOError:
 			print(Style.BRIGHT+Fore.RED+"[!] Wordlist not found!"+Style.RESET_ALL)
 
+def open_url(inj,payl):
+    print "[!] Checking"
+    print inj
+    countVul = 0;
+    page = urllib.urlopen (inj)
+    if payl in page.read ():
+        countVul += 1
+    return countVul
 
 
 def GET():
@@ -61,15 +71,11 @@ def GET():
             temp = query.replace(para,payl)
             urlForPayloads = finalurl.scheme+"://"+finalurl.hostname+finalurl.path+"?"+temp
             newPlayloads.append(urlForPayloads)
-            print urlForPayloads
+            #print urlForPayloads
 
-    countVul = 0;
-
+    countVul = 0
     for inj,payl in zip(newPlayloads,payloads):
-
-        page = urllib.urlopen(inj)
-        if payl in page.read():
-            countVul +=1
+         threading.Thread(target=open_url,args=[inj,payl]).start()
 
 
     if countVul!=0:
@@ -82,7 +88,7 @@ def GET():
 
 
 def brutexss():
-
+    introduce.init()
     introduce.banner()
 
     methodselect = raw_input ("[?] Select method: [G]ET or [P]OST (G/P): ").lower ()
@@ -93,7 +99,6 @@ def brutexss():
         pass
     else:
         print("[!] Incorrect method selected.")
-
 
 
 brutexss()
