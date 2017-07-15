@@ -10,15 +10,9 @@ import time
 from colorama import init , Style, Back,Fore
 import mechanize
 import httplib
+import introduce
 
 init()
-banner = """                                                                                       
-  ____             _        __  ______ ____  
- | __ ) _ __ _   _| |_ ___  \ \/ / ___/ ___| 
- |  _ \| '__| | | | __/ _ \  \  /\___ \___ \ 
- | |_) | |  | |_| | ||  __/  /  \ ___) |__) |
- |____/|_|   \__,_|\__\___| /_/\_\____/____/ 
-"""
 
 
 def wordlistimport(file,lst):
@@ -88,7 +82,9 @@ def GET():
 
 
 def brutexss():
-    print banner
+
+    introduce.banner()
+
     methodselect = raw_input ("[?] Select method: [G]ET or [P]OST (G/P): ").lower ()
 
     if methodselect == 'g':
